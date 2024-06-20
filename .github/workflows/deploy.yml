@@ -14,7 +14,7 @@ jobs:
       with:
         fetch-depth: 0
     - name: Dokku deploy
-      uses: ra-20017322-5//dokku-github-action@v6.2
+      uses: ra-20017322-5/dokku-github-action@v6.2
       env:
         PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
         HOST: ec2-15-229-252-12.sa-east-1.compute.amazonaws.com
