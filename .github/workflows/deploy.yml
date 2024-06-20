@@ -13,7 +13,14 @@ jobs:
     - uses: actions/checkout@v3
       with:
         fetch-depth: 0
-    - name: Dokku deploy
+        
+    # - name: Install dependencies
+    #   uses: php-actions/composer@v6
+    #   with:
+    #     dev: no
+    #     args: --profile --ignore-platform-reqs
+        
+    - name: Deploy
       uses: easingthemes/ssh-deploy@main
       env:
         SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY_TCC }}
