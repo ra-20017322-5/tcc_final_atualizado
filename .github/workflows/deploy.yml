@@ -22,3 +22,5 @@ jobs:
         REMOTE_USER: ec2-user
         PROJECT: web.laravel
         FORCE_DEPLOY: true
+        TARGET: /var/www
+        EXCLUDE: ".env"
