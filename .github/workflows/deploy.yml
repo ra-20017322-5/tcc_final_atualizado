@@ -24,3 +24,4 @@ jobs:
         FORCE_DEPLOY: true
         TARGET: /var/www
         EXCLUDE: ".env"
+        ARGS: "-rlgoDzvc -i --delete"
