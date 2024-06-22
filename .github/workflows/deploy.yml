@@ -33,4 +33,4 @@ jobs:
         EXCLUDE: ".env"
         ARGS: "-rlgoDzvc -i --delete"
         SCRIPT_AFTER: |
-          chown -Rv apache.apache /var/www/
+          sudo chown -R apache.apache /var/www/
