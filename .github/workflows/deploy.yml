@@ -32,3 +32,5 @@ jobs:
         TARGET: /var/www
         EXCLUDE: ".env"
         ARGS: "-rlgoDzvc -i --delete"
+        SCRIPT_AFTER: |
+          chown -Rv apache.apache /var/www/
