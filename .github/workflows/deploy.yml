@@ -14,11 +14,11 @@ jobs:
       with:
         fetch-depth: 0
         
-    # - name: Install dependencies
-    #   uses: php-actions/composer@v6
-    #   with:
-    #     dev: no
-    #     args: --profile --ignore-platform-reqs
+    - name: Install dependencies
+      uses: php-actions/composer@v6
+      with:
+        dev: no
+        args: --profile --ignore-platform-reqs
         
     - name: Deploy
       uses: easingthemes/ssh-deploy@main
