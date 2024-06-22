@@ -21,6 +21,12 @@
                     <a href="{{ route('dashboard') }}">
                         <i class="fas fa-wheelchair"></i>
                         <br>
+                        <b>Contratos</b>
+                    </a>
+                    
+                    <a href="{{ route('dashboard') }}">
+                        <i class="fas fa-wheelchair"></i>
+                        <br>
                         <b>Cadeiras</b>
                     </a>
                     
