@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
+use App\Models\UserType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -14,32 +15,27 @@ class UserController extends Controller
 
     public function index() 
     {   
-        #retoorno simples
-        // $user = User::first();
-        // return view('admin.users.index', compact('user'));
-        
-        #Listagem
-        // $users = User::all(); //Tras todos os registros
-        
         $users = User::paginate(20);
-        return view('admin.users.index', compact('users'));
+        $user_types = UserType::orderBy('name', 'ASC')->get();
+        return view('admin.users.index', compact('users','user_types'));
     }
     
     public function create() 
     {   
-        #Listagem
-        // $users = User::all(); //Tras todos os registros
-        
-        // $users = User::paginate(20);
+        // $estados = Estado::orderBy('name', 'ASC')->get();
+        // return view('admin.users.create', ['estados'=>$estados]);
         return view('admin.users.create');
     }
     
     public function store(StoreUserRequest $request) 
     {   
-        User::create( $request->validated() );
+        if( ! User::create( $request->validated() ) ){
+            return back()
+            ->with('message','Campos com * são obrigatórios!');
+        }
         return redirect()
             ->route('users.index')
-            ->with('success','Usuário criado com sucesso!');
+            ->with('message','Usuário criado com sucesso!');
     }
     
     public function edit(string $id) 
@@ -60,7 +56,15 @@ class UserController extends Controller
                 ->with('message','Usuário não encontrado!');
         }
         
-        $data = $request->only('name', 'email');
+        $data = $request->only(
+            'name',
+            'email',
+            'cellphone',
+            'telephone',
+            'personal_id_primary',
+            'personal_id_secundary',
+            'driver_id'
+        );
         
         if($request->password){
             $data['password'] = bcrypt($request->password);

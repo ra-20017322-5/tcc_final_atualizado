@@ -31,9 +31,11 @@
                             
                             <table whidth="100%" class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                                 <thead class="text-xs text-center text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                                    <th>Descrição</th>
-                                    <th>Disponibilidade</th>
-                                    <th>Conversar</th>
+                                    <tr>
+                                        <th>Descrição</th>
+                                        <th>Disponibilidade</th>
+                                        <th>Conversar</th>
+                                    </tr>
                                 </thead>
                                 <tbody>
                                     <tr class="odd:bg-white text-center odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">

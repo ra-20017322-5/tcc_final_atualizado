@@ -27,7 +27,7 @@
         <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
         
         
-            @include('layouts.navigation_home')
+            @include('layouts.navigation')
             
             <div class="relative flex flex-col items-center justify-center selection:bg-[#4A89DC] selection:text-white">
                 <div class="relative w-full max-w-2xl px-6 lg:max-w-7xl">

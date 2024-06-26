@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class StoreUserRequest extends FormRequest
+class AssetStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -29,19 +29,39 @@ class StoreUserRequest extends FormRequest
                 'min:5',
                 'max:255',
             ],
-            'email'=>[
-                'required',
-                'string',
-                'min:5',
-                'max:255',
-                Rule::unique('users', 'email')->ignore($this->user, 'id')
+            'user_id'=>[
+                'nullable',
             ],
-            'password'=>[
+            'asset_categorie'=>[
                 'required',
                 'string',
-                'min:6',
-                'max:20'
-            ]
+            ],
+            'asset_type'=>[
+                'required',
+                'string',
+            ],
+            'avaiable_at'=>[
+                'nullable',
+                'date',
+            ],
+            'serial_number'=>[
+                'nullable',
+                'string',
+                'max:40',
+            ],
+            'tag'=>[
+                'nullable',
+                'string',
+            ],
+            'patrimonial_id'=>[
+                'nullable',
+                'string',
+                'max:40',
+            ],
+            'observation'=>[
+                'nullable',
+                'string',
+            ],
         ];
     }
 }

@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateUserRequest extends StoreUserRequest
+class AssetUpdateRequest extends StoreUserRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,12 +23,46 @@ class UpdateUserRequest extends StoreUserRequest
     {
         $rules = parent::rules();
         
-        $rules['password'] = [
-            'nullable',
-            'min:6',
-            'max:20'
+        return [
+            'name'=>[
+                'required',
+                'string',
+                'min:5',
+                'max:255',
+            ],
+            'user_id'=>[
+                'nullable',
+            ],
+            'asset_categorie'=>[
+                'required',
+                'string',
+            ],
+            'asset_type'=>[
+                'required',
+                'string',
+            ],
+            'avaiable_at'=>[
+                'nullable',
+                'date',
+            ],
+            'serial_number'=>[
+                'nullable',
+                'string',
+                'max:40',
+            ],
+            'tag'=>[
+                'nullable',
+                'string',
+            ],
+            'patrimonial_id'=>[
+                'nullable',
+                'string',
+                'max:40',
+            ],
+            'observation'=>[
+                'nullable',
+                'string',
+            ],
         ];
-        
-        return $rules;
     }
 }

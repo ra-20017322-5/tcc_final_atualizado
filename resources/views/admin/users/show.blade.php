@@ -1,11 +1,10 @@
-@extends('admin.users.layouts.app')
+@extends('admin/layouts/app')
 
 @section('title', 'Detalhes do usuários')
 
 @section('content')
     <h3>Detalhes de usuários</h3>
     
-    <x-alert/>
     
     <ul>
         <li>Nome: {{$user->name}}</li>

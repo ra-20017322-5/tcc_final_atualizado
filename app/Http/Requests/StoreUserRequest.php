@@ -36,11 +36,46 @@ class StoreUserRequest extends FormRequest
                 'max:255',
                 Rule::unique('users', 'email')->ignore($this->user, 'id')
             ],
+            'user_type'=>[
+                'required',
+                'string',
+                'min:1',
+            ],
             'password'=>[
                 'required',
                 'string',
                 'min:6',
                 'max:20'
+            ],
+            'cellphone'=>[
+                'required',
+                'string',
+                'min:14',
+                'max:20',
+            ],
+            'telephone'=>[
+                'nullable',
+                'string',
+                'min:14',
+                'max:20',
+            ],
+            'personal_id_primary'=>[
+                'required',
+                'string',
+                'min:10',
+                'max:20',
+            ],
+            'personal_id_secundary'=>[
+                'nullable',
+                'string',
+                'min:6',
+                'max:20',
+            ],
+            'driver_id'=>[
+                'nullable',
+                'string',
+                'min:8',
+                'max:20',
             ]
         ];
     }
