@@ -26,9 +26,15 @@ class AssetGaleryController extends Controller
         $file_size = $request->file('file')->getSize();
         $file_name = $file->getClientOriginalName();
         $extension = $file->getClientOriginalExtension();
-        $file_name_uploaded = md5(uniqid().microtime()).'.'.$extension;
+        $file_name_uploaded = md5(uniqid().microtime().uniqid()).'.'.$extension;
         
-        if( ! Storage::put('tcc-upload/assets/', $file, $file_name) )
+        // if( ! Storage::putFileAs('tcc-upload/assets/', $file, $file_name,'public') )
+        // if( ! $file->storeAs('/tcc-upload/assets/', $file_name_uploaded, 's3') )
+        // if( ! Storage::disk('s3')->putFile('assets/', $file, $file_name_uploaded) )
+        $result = Storage::putFileAs('/', $file, $file_name,'public');
+        return back()
+        ->with('message','asasdasd'.$result);
+        if( ! Storage::disk('s3')->putFile('/', $file, $file_name_uploaded) )
         {
             return back()
                 ->with('message','FALHA AO ENVIAR PARA O BUCKET NA AWS S3');
