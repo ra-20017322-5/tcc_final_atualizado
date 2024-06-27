@@ -8,6 +8,7 @@ use App\Http\Requests\AssetUpdateRequest;
 use App\Models\Asset;
 use App\Models\AssetCategorie;
 use App\Models\AssetType;
+use App\Models\UploadGet;
 use Illuminate\Http\Request;
 
 class AssetController extends Controller
@@ -18,7 +19,7 @@ class AssetController extends Controller
         $asset_type = AssetType::orderBy('name', 'ASC')->get();
         $asset_categorie = AssetCategorie::orderBy('name', 'ASC')->get();
 
-        return view('admin.assets.index', compact('assets'));
+        return view('admin.assets.index', compact('assets','asset_type','asset_categorie'));
     }
     
     public function create() 
@@ -51,7 +52,9 @@ class AssetController extends Controller
         
         $types = AssetType::orderBy('name', 'ASC')->get();
         $categories = AssetCategorie::orderBy('name', 'ASC')->get();
-        return view('admin.assets.edit', compact('asset','types','categories'));
+        $photosGalery = UploadGet::findAllByTypeAndReference($asset->id,9);
+        $contracts = UploadGet::findAllByType(6);
+        return view('admin.assets.edit', compact('asset','types','categories','photosGalery','contracts'));
 
     }
     

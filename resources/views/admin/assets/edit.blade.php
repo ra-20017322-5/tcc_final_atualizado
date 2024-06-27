@@ -94,11 +94,10 @@
                                 <textarea id="observation" name="observation" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Digite mais informações sobre o item...">{{$asset->observation}}</textarea>
                             </div>
                         </div>
-                        
 
                         
                         @if ( isset($errors) )
-                            <div class="w-full items-center rounded-lg bg-info-100 px-6 py-5 text-base text-info-800 dark:bg-[#11242a] dark:text-info-500">
+                            <div class="w-full items-center rounded-lg bg-info-100 px-6 py-2 text-base text-info-800 dark:bg-[#11242a] dark:text-info-500">
                                 {{session('message')}}
                             </div>
                         @endif
@@ -113,6 +112,48 @@
                     </form>
                 </div>
             </div>
+                        
+            <br>
+            
+            <div class="relative overflow-x-auto shadow-md sm:rounded-lg bg-white mt-4">
+                <div class="flex justify-between">
+                    <h4 class="justify-start mt-2 mr-2 mb-2 ml-2 text-xl italic text-neutral-500 dark:text-neutral-400"><i class="fas fa-map-marker-alt"></i> Contrato</h4>
+                    
+                    <form action="{{ route('assets_contract.store', $asset->id) }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="reference_id" value="{{$asset->id}}">
+                    <input type="hidden" name="upload_type" value="6">
+                    <button class="mt-2 mr-2 mb-2 ml-2 text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
+                        Incluir Contrato
+                    </button>
+                    </form>
+                </div>
+                
+                <table whidth="100%" class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                    <thead class="text-xs text-center text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <tr>
+                            <th class="px-6 py-4">Data cadastro</th>
+                            <th>Usuário</th>
+                            <th>Arquivo</th>
+                            <th>Alocado até</th>
+                            <th>Status / Avaliador</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse ($contracts as $contract)
+                            <tr class="odd:bg-white text-center odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                                <td class="px-6 py-4">{{$contract->created_at}}</td>
+                                <td class="px-6 py-4">{{$contract->user_upload}}</td>
+                                <td class="px-6 py-4">{{$contract->file_name}}</td>
+                                <td class="px-6 py-4">{{$contract->allocated_at}}</td>
+                                <td class="px-6 py-4">{{$contract->up_status}} <br> {{$contract->user_approved}}</td>
+                            </tr>
+                        @empty
+                            <tr><td class="px-6" colspan="100"> Nenhum contrato!</td></tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
             
             <br>
             
@@ -120,7 +161,7 @@
                 <div class="flex justify-between">
                     <h4 class="justify-start mt-2 mr-2 mb-2 ml-2 text-xl italic text-neutral-500 dark:text-neutral-400"><i class="fas fa-camera"></i> Galeria de fotos</h4>
                 
-                    <a href="{{ url('admin/upload', $asset->id) }}" type="button" class="mt-2 mr-2 mb-2 ml-2 text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
+                    <a href="{{ url('admin/assets_galery', $asset->id) }}" type="button" class="mt-2 mr-2 mb-2 ml-2 text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
                         Incluir foto
                     </a>
                 </div>
@@ -134,17 +175,28 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {{-- @forelse ($photos as $photo)
+                        @forelse ($photosGalery as $photo)
                             <tr class="odd:bg-white text-center odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
                                 <td class="px-6 py-4">{{$photo->created_at}}</td>
-                                <td class="px-6 py-4">{{$photo->name}}</td>
-                                <td >
-                                    <a href="{{route('photo.delete', $photo->id)}}">Excluir</a> | 
+                                <td class="px-6 py-4">{{$photo->user_upload}}</td>
+                                <td class="px-6 py-4">
+                                    @if (env('APP_ENV')!='Production')
+                                        <a href="#"  class="">
+                                    @else
+                                        <a href="{{ Storage::disk('s3')->url('tcc-final/assets/'.$photo->file_name_uploaded) }}"  class="">
+                                    @endif
+                                        {{$photo->file_name}}
+                                    </a>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <a href="#" id="{{$photo->id}}" class="delete">
+                                        Excluir
+                                    </a>
                                 </td>
                             </tr>
-                        @empty --}}
+                        @empty
                             <tr><td class="px-6" colspan="100"> Nenhuma foto cadastrada!</td></tr>
-                        {{-- @endforelse --}}
+                        @endforelse
                     </tbody>
                 </table>
             </div>

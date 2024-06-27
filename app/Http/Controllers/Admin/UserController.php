@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use App\Models\Address;
 use App\Models\User;
 use App\Models\UserType;
 use Illuminate\Http\Request;
@@ -46,7 +47,8 @@ class UserController extends Controller
                 ->with('message','Usuário não encontrado!');
         }
         
-        return view('admin.users.edit', compact('user'));
+        $addresses = Address::getAllByIdUser($id);
+        return view('admin.users.edit', compact('user','addresses'));
     }
     
     public function update(UpdateUserRequest $request, string $id) 

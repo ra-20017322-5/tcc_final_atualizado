@@ -1,8 +1,8 @@
 <?php
-use App\Http\Controllers\admin\AssetController;
-use App\Http\Controllers\admin\ContractController;
+use App\Http\Controllers\Admin\AssetController;
+use App\Http\Controllers\Admin\AssetGaleryController;
+use App\Http\Controllers\Admin\ContractController;
 use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\AwsUploadController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -32,8 +32,14 @@ Route::middleware('auth')
         Route::post('/assets', [AssetController::class, 'store'])->name('assets.store');
         Route::delete('/assets/delete/{id}', [AssetController::class, 'delete'])->name('assets.delete');
         
-        Route::get('/uploads/{id}', [AwsUploadController::class, 'index'])->name('uploads.index');
-        Route::post('/uploads/{id}', [AwsUploadController::class, 'store'])->name('uploads.store');
+        Route::get('/assets_galery/{id}', [AssetGaleryController::class, 'index'])->name('assets_galery.index');
+        Route::post('/assets_galery/{id}', [AssetGaleryController::class, 'store'])->name('assets_galery.store');
+        
+        Route::get('/assets_contract/{id}', [AssetGaleryController::class, 'index'])->name('assets_contract.index');
+        Route::post('/assets_contract/{id}', [AssetGaleryController::class, 'store'])->name('assets_contract.store');
+        
+        Route::get('/uploads/{id}', [AssetGaleryController::class, 'upload'])->name('uploads.upload');
+        Route::post('/uploads/{id}', [AssetGaleryController::class, 'store'])->name('uploads.store');
         
         Route::get('/contracts', [ContractController::class, 'index'])->name('contracts.index');
         Route::post('/contracts/{id}', [ContractController::class, 'store'])->name('contracts.store');

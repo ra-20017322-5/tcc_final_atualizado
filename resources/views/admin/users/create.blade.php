@@ -20,6 +20,7 @@
                 <div class="mt-2 mr-2 mb-2 ml-2">
                     <form action="{{ route('users.store') }}" method="POST">
                         @csrf
+                        
                         <div>
                             <x-input-label for="name" :value="__('NOME *')" /> 
                             <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" value="{{$user->name ?? old('name')}}" required autofocus />

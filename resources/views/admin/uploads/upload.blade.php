@@ -1,6 +1,6 @@
 @extends('admin/layouts/app')
 
-@section('title', 'Editar cadeira')
+@section('title', 'Uploads')
 
 @section('content')
 <div class="relative flex flex-col items-center justify-center selection:bg-[#4A89DC] selection:text-white">
@@ -12,17 +12,17 @@
                 <div class="flex justify-between">
                     <h4 class="justify-start mt-2 mr-2 mb-2 ml-2 text-xl italic text-neutral-500 dark:text-neutral-400"><i class="fas fa-upload"></i> Uploads</h4>
 
-                    <a href="{{ back() }}" type="button" class="mt-2 mr-2 mb-2 ml-2 text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
+                    <a href="#" type="button" class="mt-2 mr-2 mb-2 ml-2 text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
                         Voltar
                     </a>
                 </div>
     
                 <div class="mt-2 mr-2 mb-2 ml-2">
-                    <form action="{{ route('upload.store', $asset->id) }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('uploads.store', $reference_id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         
-                        <input type="hidden" name="reference_id" value="">
-                        <input type="hidden" name="upload_type" value="">
+                        <input type="hidden" name="reference_id" value="{{$reference_id}}">
+                        <input type="hidden" name="upload_type" value="9">
                         
                         <input type="file" name="file" placeholder="Selecione um ou mais arquivos">
                         
@@ -32,6 +32,13 @@
                             </div>
                         @endif
                         
+                        <div class="flex w-full">
+                            <div class="flex items-center justify-start mt-4 mb-4 mr-4">
+                                <x-primary-button class="">
+                                    {{ __('Enviar') }}
+                                </x-primary-button>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>

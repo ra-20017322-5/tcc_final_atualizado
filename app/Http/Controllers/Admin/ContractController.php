@@ -5,19 +5,20 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ContractStoreRequest;
 use App\Models\Contract;
+use App\Models\UploadGet;
 use Illuminate\Http\Request;
 
 class ContractController extends Controller
 {
     public function index() 
     {   
-
-        return view('admin.contracts.index');
+        $contracts = UploadGet::findAllByType(6);
+        return view('admin.contracts.index', compact('contracts'));
     }
     
     public function store(ContractStoreRequest $request, string $id) 
     {   
-        if( ! $user =Contract::find($id) ){
+        if( ! $contract = Contract::find($id) ){
             return back()
                 ->with('message','Usuário não encontrado!');
         }
@@ -32,7 +33,7 @@ class ContractController extends Controller
             'observation'
         );
 
-        $user->store($data);
+        $contract->store($data);
         
         return redirect()
             ->route('contracts.index')
