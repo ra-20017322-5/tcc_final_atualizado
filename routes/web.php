@@ -3,6 +3,7 @@ use App\Http\Controllers\Admin\AssetController;
 use App\Http\Controllers\Admin\AssetGaleryController;
 use App\Http\Controllers\Admin\ContractController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\AssetListController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -51,7 +52,7 @@ Route::middleware('auth')
 
 
 Route::get('/', function () {return view('welcome');});
-Route::get('/cadeiraderodas', function () {return view('assets_wheel');});
+Route::get('/cadeiraderodas', [AssetListController::class, 'index'])->name('assets_wheel');
 
 
 

@@ -15,7 +15,7 @@ class AssetController extends Controller
 {
     public function index() 
     {   
-        $assets = Asset::paginate(20);
+        $assets = Asset::paginate(50);
         $asset_type = AssetType::orderBy('name', 'ASC')->get();
         $asset_categorie = AssetCategorie::orderBy('name', 'ASC')->get();
 

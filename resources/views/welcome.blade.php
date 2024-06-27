@@ -38,7 +38,6 @@
                     <main class="mt-6">
                         <div class="grid gap-6 lg:grid-cols-2 lg:gap-8">
                             
-
                             <a
                                 href="{{ url('/cadeiraderodas') }}"
                                 class="flex items-start gap-4 rounded-lg bg-white p-6 shadow-[0px_14px_34px_0px_rgba(0,0,0,0.08)] ring-1 ring-white/[0.05] transition duration-300 hover:text-black/70 hover:ring-black/20 focus:outline-none focus-visible:ring-[#4A89DC] lg:pb-10 dark:bg-zinc-900 dark:ring-zinc-800 dark:hover:text-white/70 dark:hover:ring-zinc-700 dark:focus-visible:ring-[#4A89DC]"
@@ -76,6 +75,53 @@
 
                         </div>
                     </main>
+                    
+                    <br>
+                    
+                    <div class=" overflow-x-auto shadow-md sm:rounded-lg bg-white mt-4 shadow-[0px_14px_34px_0px_rgba(0,0,0,0.08)]">
+                        <div class="flex justify-start">
+                            <div class="mt-4 ml-4 flex size-12 shrink-0 items-center justify-center rounded-full sm:size-16" style="background-color: #95D9F1;">
+                                <i class="fas fa-globe-americas"></i>
+                            </div>
+                            
+                            <div class="pt-3 sm:pt-5 mt-4 ml-4 items-center  justify-start">
+                                <h2 class="text-xl font-semibold text-black dark:text-white">Quem somos</h2>
+                            </div>
+                        </div>
+                        
+                        <div class="w-full pt-3 sm:pt-5">
+                            <br>
+                            <p class="mt-4 mr-4 mb-4 ml-4  text-justify text-gray-500 dark:text-gray-400">
+                                A UniCesumar está entre 4% das melhores instituições do Brasil, com nota máxima no MEC (Conceito Institucional). São 5 campi presenciais (Maringá, Londrina, Curitiba, Ponta Grossa e Corumbá) com uma estrutura moderna e equipe de 80% de professores mestres e doutores. Quem estuda na UniCesumar sai preparado para os desafios do mercado de trabalho.
+                                <br><br>
+                                Estudar na Unicesumar é diferente. Além de ser a melhor educação a distância do Brasil segundo o MEC, você se desenvolve com professores renomados, material didático exclusivo e uma metodologia que se adapta a sua rotina e ao seu bolso.
+                                <br><br>
+                            </p>
+                            
+                            <div class="mt-0 mr-0 mb-0 ml-0 pb-0" style="background-color:rgb(215, 218, 227)">
+                                
+                                <br>
+                                
+                                <h4 class="justify-start px-8 py-3 mt-4 mr-2 mb-2 ml-2 text-xl italic text-neutral-500 dark:text-neutral-400">
+                                    <i class="fas fa-map-marker-alt"></i> Onde você irá nos encontrar
+                                </h4>
+         
+                                
+                                <p class="justify-start mt-4 mr-4 mb-0 ml-4  text-justify text-gray-500 dark:text-gray-400">
+                                    <span class="sm:pt-5">
+                                        <b>Rua Independência, 850</b><br>
+                                    </span>
+                                    <span class=""><i class="fas fa-phone"></i> (45) 3254-3940</span><br><br>
+                                    <span class="">Atedimento:</span><br>
+                                    <span class="sm:pt-5">
+                                        De 2ª a 6ª das 8h às 22h<br>
+                                        e aos Sábados das 9h às 17h.
+                                    </span>
+                                </p>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
 
                     <footer class="py-16 text-center text-sm text-black dark:text-white/70">
                         Gestor de Ativos
