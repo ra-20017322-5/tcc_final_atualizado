@@ -144,7 +144,11 @@
                             <tr class="odd:bg-white text-center odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
                                 <td class="px-6 py-4">{{$contract->created_at}}</td>
                                 <td class="px-6 py-4">{{$contract->user_upload}}</td>
-                                <td class="px-6 py-4">{{$contract->file_name}}</td>
+                                <td class="px-6 py-4">
+                                    <a href="{{ Storage::disk('s3')->url('tcc-upload/assets/'.$contract->file_name_uploaded) }}" class="">
+                                        {{$contract->file_name}}
+                                    </a>
+                                </td>
                                 <td class="px-6 py-4">{{$contract->allocated_at}}</td>
                                 <td class="px-6 py-4">{{$contract->up_status}} <br> {{$contract->user_approved}}</td>
                             </tr>
@@ -180,11 +184,7 @@
                                 <td class="px-6 py-4">{{$photo->created_at}}</td>
                                 <td class="px-6 py-4">{{$photo->user_upload}}</td>
                                 <td class="px-6 py-4">
-                                    @if (env('APP_ENV')!='Production')
-                                        <a href="#"  class="">
-                                    @else
-                                        <a href="{{ Storage::disk('s3')->url('tcc-final/assets/'.$photo->file_name_uploaded) }}"  class="">
-                                    @endif
+                                    <a href="{{ Storage::disk('s3')->url('tcc-upload/assets/'.$photo->file_name_uploaded) }}" class="">
                                         {{$photo->file_name}}
                                     </a>
                                 </td>

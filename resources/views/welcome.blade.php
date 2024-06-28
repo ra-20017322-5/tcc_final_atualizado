@@ -31,9 +31,7 @@
             
             <div class="relative flex flex-col items-center justify-center selection:bg-[#4A89DC] selection:text-white">
                 <div class="relative w-full max-w-2xl px-6 lg:max-w-7xl">
-                    <header class="grid grid-cols-2 items-center gap-2 py-10 lg:grid-cols-3">
-                       
-                    </header>
+
 
                     <main class="mt-6">
                         <div class="grid gap-6 lg:grid-cols-2 lg:gap-8">
