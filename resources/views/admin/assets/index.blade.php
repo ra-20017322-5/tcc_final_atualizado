@@ -47,7 +47,7 @@
 
                                 <td >{{$asset->avaiable_at}}</td>
                                 <td >
-                                    <a href="{{route('assets.delete', $asset->id)}}">Excluir</a> | 
+                                    {{-- <a href="{{route('assets.delete', $asset->id)}}">Excluir</a> |  --}}
                                     <a href="{{route('assets.edit', $asset->id)}}">Editar</a>
                                 </td>
                             </tr>

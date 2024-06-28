@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Models\UserType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -78,16 +79,36 @@ class UserController extends Controller
             ->route('users.index')
             ->with('success','Salvo com sucesso!');
     }
-        
+    
     public function show(string $id) 
     {   
         if( ! $user = User::find($id) ){
-            return redirect()
-                ->route('users.index')
+            return back()
                 ->with('message','Usuário não encontrado!');
         }
+
+        return view('admin.users.show',compact('user'));
+    }
+    
+    public function resetPassword(UpdateUserRequest $request, string $id) 
+    {   
+        if( ! $user = User::find($id) ){
+            return back()
+                ->with('message','Usuário não encontrado!');
+        }
+                
+        #encryptar a senha
+        $encrypt = bcrypt($request->password);
         
-        return view('admin.users.show', compact('user'));
+        $sql = DB::update('UPDATE users SET password = ? WHERE id = ?', [$encrypt, $id] );
+        if( $sql )
+            $msg = 'Senha alterada com sucesso!';
+        else
+            $msg = 'Sem alteração!';
+            
+        return redirect()
+            ->route('users.index')
+            ->with('success',$msg);
     }
         
     public function delete(string $id) 

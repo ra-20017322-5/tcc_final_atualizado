@@ -27,6 +27,7 @@ class UploadGet extends Model
             ->leftJoin('status AS upsts', 'up.status', 'upsts.id')
             ->where('up.reference_id', $reference_id)
             ->where('up.upload_type', $upload_type)
+            ->where('up.status', 1)
             ->orderBy('up.id', 'DESC')
             ->get();
         
@@ -43,6 +44,7 @@ class UploadGet extends Model
             ->leftJoin('users AS usap', 'upc.user_id', 'usap.id')
             ->leftJoin('status AS upsts', 'up.status', 'upsts.id')
             ->where('up.upload_type', $upload_type)
+            ->where('up.status', 1)
             ->orderBy('up.id', 'DESC')
             ->get();
         

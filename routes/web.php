@@ -25,6 +25,7 @@ Route::middleware('auth')
         Route::post('/users', [UserController::class, 'store'])->name('users.store');
         Route::get('/users/edit/{user}', [UserController::class, 'edit'])->name('users.edit');
         Route::get('/users/show/{user}', [UserController::class, 'show'])->name('users.show');
+        Route::put('/users/show/{user}', [UserController::class, 'resetPassword'])->name('users.resetPassword');
         Route::delete('/users/delete/{user}', [UserController::class, 'delete'])->name('users.delete');
         
         Route::get('/assets/create', [AssetController::class, 'create'])->name('assets.create');
@@ -39,9 +40,12 @@ Route::middleware('auth')
         
         Route::get('/assets_contract/{id}', [ContractUploadController::class, 'index'])->name('assets_contract.index');
         Route::post('/assets_contract/{id}', [ContractUploadController::class, 'store'])->name('assets_contract.store');
+        Route::delete('/assets_contract/delete/{id}', [AssetGaleryController::class, 'delete'])->name('assets_contract.delete');
         
         Route::get('/uploads/{id}', [AssetGaleryController::class, 'upload'])->name('uploads.upload');
         Route::post('/uploads/{id}', [AssetGaleryController::class, 'store'])->name('uploads.store');
+        Route::put('/uploads/{id}', [AssetGaleryController::class, 'statusChange'])->name('uploads.statusChange');
+        
         
         Route::get('/contracts', [ContractController::class, 'index'])->name('contracts.index');
         Route::post('/contracts/{id}', [ContractController::class, 'store'])->name('contracts.store');

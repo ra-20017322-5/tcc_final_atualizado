@@ -24,7 +24,7 @@
                         <input type="hidden" name="reference_id" value="{{$reference_id}}">
                         <input type="hidden" name="upload_type" value="9">
                         
-                        <input type="file" id="file" class="mb-2 file" name="file" placeholder="Selecione um ou mais arquivos">
+                        <input type="file" id="file" class="mb-2 file" name="file" placeholder="Selecione um arquivo">
 
                         @if ( isset($error) )
                             <div class="return_message w-full items-center rounded-lg bg-info-100 px-6 py-5 text-base text-info-800 dark:bg-[#11242a] dark:text-info-500" style="background-color: rgb(251, 243, 203)">
@@ -61,17 +61,21 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @php
+                                use Carbon\Carbon;
+                            @endphp
+                            
                             @forelse ($photosGalery as $photo)
-                                <tr class="odd:bg-white text-center odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                                <tr id="tr_delete{{$photo->id}}" class="odd:bg-white text-center odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
                                     <td class="px-6 py-4">{{$photo->created_at}}</td>
                                     <td class="px-6 py-4">{{$photo->user_upload}}</td>
                                     <td class="px-6 py-4">
-                                        <a href="{{ Storage::disk('s3')->url('tcc-upload/assets/'.$photo->file_name_uploaded) }}" class="">
+                                        <a href="{{ Storage::disk('s3')->temporaryUrl('assets/'.$photo->file_name_uploaded, Carbon::now()->addHours(24)) }}" class="">
                                             {{$photo->file_name}}
                                         </a>
                                     </td>
                                     <td class="px-6 py-4">
-                                        <a href="#" id="{{$photo->id}}" class="delete">
+                                        <a href="#" id="{{$photo->id}}" data-id="{{$photo->id}}" class="action_delete">
                                             Excluir
                                         </a>
                                     </td>
@@ -90,3 +94,25 @@
     </div>
 </div>
 @endsection
+
+@push('scripts')
+    <script>
+        document.querySelectorAll('.action_delete').forEach((action_delete) => {
+            action_delete.addEventListener('click', () => {
+                const id_element = action_delete.getAttribute('data-id');
+                
+                Swal.fire({title:'Aguarde...', showConfirmButton: false });
+                
+                axios.delete( `{{ url('admin/assets_contract/delete') }}/${id_element}` )
+                .then((response) => {
+                    Swal.close()
+                    if(response.data.status==true){
+                        $(`#tr_delete${id_element}`).hide('slow');
+                        // Swal.fire(response.data.message);
+                    }else
+                        Swal.fire(response.data.message);
+                })
+            });
+        });
+    </script>
+@endpush

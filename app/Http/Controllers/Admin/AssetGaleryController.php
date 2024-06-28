@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 
 class AssetGaleryController extends Controller
 {
@@ -59,5 +60,43 @@ class AssetGaleryController extends Controller
         $return_success = 'ARQUIVO ENVIADO COM SUCESSO!';
         return view('admin.assets_galery.index',compact('reference_id','photosGalery','return_success'));
     }
+    
+    public function statusChange(string $upload_id,string $status)
+    {
+        if( ! $upload_id || ! $status ){
+            return back()
+                ->with('status', false)
+                ->with('message','FALHA AO PASSAR PARÂMETRO!');
+        }
+        
+        return back()
+            ->with('status', true)
+            ->with('message',"STATUS ALTERADO PARA: !");
+    }
+    
+    public function delete(string $upload_id)
+    {
+    
+        if( ! $upload_id ){
+            return response()->json([
+                'status'=>false,
+                'message'=>'FALHA AO PASSAR PARÂMETRO!',
+            ]);
+        }
+        
+        
+        $sql = DB::update('UPDATE uploads SET status = ? WHERE id = ?', [3, $upload_id] );
 
+        if($sql > 0){
+            return response()->json([
+                'status'=>true,
+                'message'=>'ARQUIVO EXCLUÍDO!',
+            ]);
+        }else{
+            return response()->json([
+                'status'=>true,
+                'message'=>'JÁ EXCLUÍDO!',
+            ]);
+        }
+    }
 }

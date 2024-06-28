@@ -142,3 +142,13 @@
     </div>
 </div>
 @endsection
+
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            $("#cellphone").mask("(99) 99999-9999");
+            $("#telephone").mask("(99) 9999-9999");
+            $("#personal_id_primary").mask("999.999.999-99");
+        });
+    </script>
+@endpush

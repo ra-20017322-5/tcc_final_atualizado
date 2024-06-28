@@ -61,17 +61,21 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @php
+                                use Carbon\Carbon;
+                            @endphp
+
                             @forelse ($contracts as $contract)
-                                <tr class="odd:bg-white text-center odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                                <tr id="tr_delete{{$contract->id}}" class=" odd:bg-white text-center odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
                                     <td class="px-6 py-4">{{$contract->created_at}}</td>
                                     <td class="px-6 py-4">{{$contract->user_upload}}</td>
                                     <td class="px-6 py-4">
-                                        <a href="{{ Storage::disk('s3')->url('tcc-upload/assets/'.$contract->file_name_uploaded) }}" class="">
+                                        <a href="{{ Storage::disk('s3')->temporaryUrl('assets/'.$contract->file_name_uploaded, Carbon::now()->addHours(24)) }}" class="">
                                             {{$contract->file_name}}
                                         </a>
                                     </td>
                                     <td class="px-6 py-4">
-                                        <a href="#" id="{{$contract->id}}" class="delete">
+                                        <a href="#" id="{{$contract->id}}" data-id="{{$contract->id}}" class="action_delete">
                                             Excluir
                                         </a>
                                     </td>
@@ -90,3 +94,25 @@
     </div>
 </div>
 @endsection
+
+@push('scripts')
+    <script>
+        document.querySelectorAll('.action_delete').forEach((action_delete) => {
+            action_delete.addEventListener('click', () => {
+                const id_element = action_delete.getAttribute('data-id');
+                
+                Swal.fire({title:'Aguarde...', showConfirmButton: false });
+                
+                axios.delete( `{{ url('admin/assets_contract/delete') }}/${id_element}` )
+                .then((response) => {
+                    Swal.close()
+                    if(response.data.status==true){
+                        $(`#tr_delete${id_element}`).hide('slow');
+                        // Swal.fire(response.data.message);
+                    }else
+                        Swal.fire(response.data.message);
+                })
+            });
+        });
+    </script>
+@endpush

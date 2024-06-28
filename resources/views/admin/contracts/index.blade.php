@@ -24,17 +24,16 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @php
+                            use Carbon\Carbon;
+                        @endphp
+                        
                         @forelse ($contracts as $contract)
                             <tr class="odd:bg-white text-center odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
                                 <td class="px-6 py-4">{{$contract->created_at}}</td>
                                 <td class="px-6 py-4">{{$contract->user_upload}}</td>
                                 <td class="px-6 py-4">
-                                    @if (env('APP_ENV')!='Production')
-                                        <a href="#"  class="">
-                                    @else
-                                        <a href="{{ Storage::disk('s3')->url('tcc-final/assets/'.$contract->file_name_uploaded) }}">
-                                    @endif
-                                        {{$contract->file_name}}
+                                    <a href="{{ Storage::disk('s3')->temporaryUrl('assets/'.$contract->file_name_uploaded, Carbon::now()->addHours(24)) }}" class="">
                                     </a>
                                 </td>
                                 <td class="px-6 py-4">{{$contract->allocated_at}}</td>

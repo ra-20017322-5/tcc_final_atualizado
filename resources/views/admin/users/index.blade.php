@@ -37,7 +37,7 @@
                                     @endforeach
                                 </td>
                                 <td >
-                                    <a href="{{route('users.edit', $user->id)}}">Alterar Senha</a> | 
+                                    <a href="{{route('users.show', $user->id)}}">Alterar Senha</a> | 
                                     <a href="{{route('users.edit', $user->id)}}">Editar</a>
                                 </td>
                             </tr>

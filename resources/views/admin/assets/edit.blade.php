@@ -137,20 +137,30 @@
                             <th>Arquivo</th>
                             <th>Alocado até</th>
                             <th>Status / Avaliador</th>
+                            <th>Ação</th>
                         </tr>
                     </thead>
                     <tbody>
+                        @php
+                            use Carbon\Carbon;
+                        @endphp
+                        
                         @forelse ($contracts as $contract)
-                            <tr class="odd:bg-white text-center odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                            <tr id="tr_delete{{$contract->id}}" class="odd:bg-white text-center odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
                                 <td class="px-6 py-4">{{$contract->created_at}}</td>
                                 <td class="px-6 py-4">{{$contract->user_upload}}</td>
                                 <td class="px-6 py-4">
-                                    <a href="{{ Storage::disk('s3')->url('tcc-upload/assets/'.$contract->file_name_uploaded) }}" class="">
+                                    <a href="{{ Storage::disk('s3')->temporaryUrl('assets/'.$contract->file_name_uploaded, Carbon::now()->addHours(24)) }}" class="">
                                         {{$contract->file_name}}
                                     </a>
                                 </td>
                                 <td class="px-6 py-4">{{$contract->allocated_at}}</td>
                                 <td class="px-6 py-4">{{$contract->up_status}} <br> {{$contract->user_approved}}</td>
+                                <td class="px-6 py-4">
+                                    <a href="#" id="{{$contract->id}}" data-id="{{$contract->id}}" class="action_delete">
+                                        Excluir
+                                    </a>
+                                </td>
                             </tr>
                         @empty
                             <tr><td class="px-6" colspan="100"> Nenhum contrato!</td></tr>
@@ -174,22 +184,23 @@
                     <thead class="text-xs text-center text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
                             <th class="px-6 py-4">Data</th>
+                            <th>Usuario</th>
                             <th>Arquivo</th>
                             <th width="">Ação</th>
                         </tr>
                     </thead>
                     <tbody>
                         @forelse ($photosGalery as $photo)
-                            <tr class="odd:bg-white text-center odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                            <tr id="tr_delete{{$photo->id}}" class="odd:bg-white text-center odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
                                 <td class="px-6 py-4">{{$photo->created_at}}</td>
                                 <td class="px-6 py-4">{{$photo->user_upload}}</td>
                                 <td class="px-6 py-4">
-                                    <a href="{{ Storage::disk('s3')->url('tcc-upload/assets/'.$photo->file_name_uploaded) }}" class="">
+                                    <a href="{{ Storage::disk('s3')->temporaryUrl('assets/'.$photo->file_name_uploaded, Carbon::now()->addHours(24)) }}" class="">
                                         {{$photo->file_name}}
                                     </a>
                                 </td>
                                 <td class="px-6 py-4">
-                                    <a href="#" id="{{$photo->id}}" class="delete">
+                                    <a href="#" id="{{$photo->id}}" data-id="{{$photo->id}}" class="action_delete">
                                         Excluir
                                     </a>
                                 </td>
@@ -204,3 +215,26 @@
     </div>
 </div>
 @endsection
+
+@push('scripts')
+    <script>
+        document.querySelectorAll('.action_delete').forEach((action_delete) => {
+            action_delete.addEventListener('click', () => {
+                const id_element = action_delete.getAttribute('data-id');
+                
+                Swal.fire({title:'Aguarde...', showConfirmButton: false });
+                
+                axios.delete( `{{ url('admin/assets_contract/delete') }}/${id_element}` )
+                .then((response) => {
+                    Swal.close()
+                    
+                    if(response.data.status==true){
+                        $(`#tr_delete${id_element}`).hide('slow');
+                        // Swal.fire(response.data.message);
+                    }else
+                        Swal.fire(response.data.message);
+                })
+            });
+        });
+    </script>
+@endpush
