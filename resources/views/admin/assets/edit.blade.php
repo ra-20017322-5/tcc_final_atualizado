@@ -10,7 +10,7 @@
             <div class="relative overflow-x-auto shadow-md sm:rounded-lg bg-white">
                 
                 <div class="flex justify-between">
-                    <h4 class="justify-start mt-2 mr-2 mb-2 ml-2 text-xl italic text-neutral-500 dark:text-neutral-400"><i class="fas fa-wheelchair"></i> Incluir cadeira</h4>
+                    <h4 class="justify-start mt-2 mr-2 mb-2 ml-2 text-xl italic text-neutral-500 dark:text-neutral-400"><i class="fas fa-wheelchair"></i> Editando cadeira</h4>
 
                     <a href="{{ url('admin/assets') }}" type="button" class="mt-2 mr-2 mb-2 ml-2 text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
                         Voltar
@@ -119,13 +119,13 @@
                 <div class="flex justify-between">
                     <h4 class="justify-start mt-2 mr-2 mb-2 ml-2 text-xl italic text-neutral-500 dark:text-neutral-400"><i class="fas fa-map-marker-alt"></i> Contrato</h4>
                     
-                    <form action="{{ route('assets_contract.store', $asset->id) }}" method="POST">
-                    @csrf
-                    <input type="hidden" name="reference_id" value="{{$asset->id}}">
-                    <input type="hidden" name="upload_type" value="6">
-                    <button class="mt-2 mr-2 mb-2 ml-2 text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
-                        Incluir Contrato
-                    </button>
+                    <form action="{{ route('assets_contract.index', $asset->id) }}" method="GET">
+                        @csrf
+                        <input type="hidden" name="reference_id" value="{{$asset->id}}">
+                        <input type="hidden" name="upload_type" value="6">
+                        <button class="mt-2 mr-2 mb-2 ml-2 text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
+                            Incluir Contrato
+                        </button>
                     </form>
                 </div>
                 

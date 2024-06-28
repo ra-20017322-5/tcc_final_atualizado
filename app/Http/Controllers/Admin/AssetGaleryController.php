@@ -28,13 +28,9 @@ class AssetGaleryController extends Controller
         $extension = $file->getClientOriginalExtension();
         $file_name_uploaded = md5(uniqid().microtime().uniqid()).'.'.$extension;
         
-        // if( ! Storage::putFileAs('tcc-upload/assets/', $file, $file_name,'public') )
-        // if( ! $file->storeAs('/tcc-upload/assets/', $file_name_uploaded, 's3') )
-        // if( ! Storage::disk('s3')->putFile('assets/', $file, $file_name_uploaded) )
-        $result = Storage::putFileAs('/', $file, $file_name,'public');
-        return back()
-        ->with('message','asasdasd'.$result);
-        if( ! Storage::disk('s3')->putFile('/', $file, $file_name_uploaded) )
+        $result = $file->storeAs('assets/', $file_name_uploaded, 's3');
+        
+        if( ! $result )
         {
             return back()
                 ->with('message','FALHA AO ENVIAR PARA O BUCKET NA AWS S3');
@@ -53,14 +49,15 @@ class AssetGaleryController extends Controller
 
         if( ! UploadAws::create( $data ) ){
             return back()
-            ->with('message','FALHOU AO SALVAR O UPLOAD!');
+            ->with('return_error','FALHOU AO SALVAR O UPLOAD!');
         }
         
         #Return dados
         $reference_id = $data['reference_id'];
         $photosGalery = UploadGet::findAllByTypeAndReference($data['reference_id'], $data['upload_type']);
         
-        return view('admin.assets_galery.index',compact('reference_id','photosGalery'));
+        $return_success = 'ARQUIVO ENVIADO COM SUCESSO!';
+        return view('admin.assets_galery.index',compact('reference_id','photosGalery','return_success'));
     }
 
 }

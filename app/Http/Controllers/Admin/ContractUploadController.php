@@ -19,7 +19,7 @@ class ContractUploadController extends Controller
     {
         #Return dados
         $contracts = UploadGet::findAllByTypeAndReference($reference_id,6);
-        return view('admin.contract_galery.index',compact('reference_id','contracts'));
+        return view('admin.assets_contract.index',compact('reference_id','contracts'));
     }
     
     public function store(Request $request)
@@ -28,9 +28,11 @@ class ContractUploadController extends Controller
         $file_size = $request->file('file')->getSize();
         $file_name = $file->getClientOriginalName();
         $extension = $file->getClientOriginalExtension();
-        $file_name_uploaded = md5(uniqid().microtime()).'.'.$extension;
+        $file_name_uploaded = md5(uniqid().microtime().uniqid()).'.'.$extension;
         
-        if( ! Storage::put('tcc-upload/assets', $file, $file_name) )
+        $result = $file->storeAs('assets/', $file_name_uploaded, 's3');
+        
+        if( ! $result )
         {
             return back()
                 ->with('message','FALHA AO ENVIAR PARA O BUCKET NA AWS S3');
@@ -49,13 +51,14 @@ class ContractUploadController extends Controller
 
         if( ! UploadAws::create( $data ) ){
             return back()
-            ->with('message','FALHOU AO SALVAR O UPLOAD!');
+            ->with('return_success','FALHOU AO SALVAR O UPLOAD!');
         }
         
         #Return dados
         $reference_id = $data['reference_id'];
-        $photosGalery = UploadGet::findAllByTypeAndReference($data['reference_id'], $data['upload_type']);
+        $contracts = UploadGet::findAllByTypeAndReference($data['reference_id'], $data['upload_type']);
         
-        return view('admin.contract_galery.index',compact('reference_id','photosGalery'));
+        $return_success = 'ARQUIVO ENVIADO COM SUCESSO!';
+        return view('admin.assets_contract.index',compact('reference_id','contracts','return_success'));
     }
 }

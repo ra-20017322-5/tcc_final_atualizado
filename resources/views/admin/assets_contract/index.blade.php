@@ -10,7 +10,7 @@
             <div class="relative overflow-x-auto shadow-md sm:rounded-lg bg-white">
                 
                 <div class="flex justify-between">
-                    <h4 class="justify-start mt-2 mr-2 mb-2 ml-2 text-xl italic text-neutral-500 dark:text-neutral-400"><i class="fas fa-upload"></i> Upload de fotos</h4>
+                    <h4 class="justify-start mt-2 mr-2 mb-2 ml-2 text-xl italic text-neutral-500 dark:text-neutral-400"><i class="fas fa-upload"></i> Upload de contrato</h4>
 
                     <a href="{{url('admin/assets/edit',$reference_id)}}" type="button" class="mt-2 mr-2 mb-2 ml-2 text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
                         Voltar
@@ -18,13 +18,13 @@
                 </div>
     
                 <div class="mt-2 mr-2 mb-2 ml-2">
-                    <form action="{{ route('assets_galery.store', $reference_id) }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('assets_contract.store', $reference_id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         
                         <input type="hidden" name="reference_id" value="{{$reference_id}}">
-                        <input type="hidden" name="upload_type" value="9">
+                        <input type="hidden" name="upload_type" value="6">
                         
-                        <input type="file" id="file" class="mb-2 file" name="file" placeholder="Selecione um ou mais arquivos">
+                        <input type="file" id="file" class="mb-2 file" name="file" placeholder="Selecione o contrato">
 
                         @if ( isset($error) )
                             <div class="return_message w-full items-center rounded-lg bg-info-100 px-6 py-5 text-base text-info-800 dark:bg-[#11242a] dark:text-info-500" style="background-color: rgb(251, 243, 203)">
@@ -56,28 +56,28 @@
                             <tr>
                                 <th class="px-6 py-4">Data</th>
                                 <th>Usuário</th>
-                                <th>Arquivo</th>
+                                <th>Contrato</th>
                                 <th>Ação</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($photosGalery as $photo)
+                            @forelse ($contracts as $contract)
                                 <tr class="odd:bg-white text-center odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-                                    <td class="px-6 py-4">{{$photo->created_at}}</td>
-                                    <td class="px-6 py-4">{{$photo->user_upload}}</td>
+                                    <td class="px-6 py-4">{{$contract->created_at}}</td>
+                                    <td class="px-6 py-4">{{$contract->user_upload}}</td>
                                     <td class="px-6 py-4">
-                                        <a href="{{ Storage::disk('s3')->url('tcc-upload/assets/'.$photo->file_name_uploaded) }}" class="">
-                                            {{$photo->file_name}}
+                                        <a href="{{ Storage::disk('s3')->url('tcc-upload/assets/'.$contract->file_name_uploaded) }}" class="">
+                                            {{$contract->file_name}}
                                         </a>
                                     </td>
                                     <td class="px-6 py-4">
-                                        <a href="#" id="{{$photo->id}}" class="delete">
+                                        <a href="#" id="{{$contract->id}}" class="delete">
                                             Excluir
                                         </a>
                                     </td>
                                 </tr>
                             @empty
-                                <tr><td class="px-6" colspan="100"> Nenhuma foto cadastrada!</td></tr>
+                                <tr><td class="px-6" colspan="100"> Nenhum contrato!</td></tr>
                             @endforelse
                         </tbody>
                     </table>

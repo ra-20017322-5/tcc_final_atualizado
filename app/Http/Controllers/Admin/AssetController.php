@@ -31,8 +31,10 @@ class AssetController extends Controller
     
     public function store(AssetStoreRequest $request) 
     {   
+        $data = $request->validated();
+        $data['user_id'] = auth()->user()->id;
         
-        if( ! Asset::create( $request->validated() ) ){
+        if( ! Asset::create( $data ) ){
             return back()
             ->with('message','Campos com * são obrigatórios!');
         }
@@ -53,7 +55,7 @@ class AssetController extends Controller
         $types = AssetType::orderBy('name', 'ASC')->get();
         $categories = AssetCategorie::orderBy('name', 'ASC')->get();
         $photosGalery = UploadGet::findAllByTypeAndReference($asset->id,9);
-        $contracts = UploadGet::findAllByType(6);
+        $contracts = UploadGet::findAllByTypeAndReference($asset->id,6);
         return view('admin.assets.edit', compact('asset','types','categories','photosGalery','contracts'));
 
     }

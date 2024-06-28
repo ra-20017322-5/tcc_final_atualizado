@@ -2,6 +2,7 @@
 use App\Http\Controllers\Admin\AssetController;
 use App\Http\Controllers\Admin\AssetGaleryController;
 use App\Http\Controllers\Admin\ContractController;
+use App\Http\Controllers\Admin\ContractUploadController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\AssetListController;
 use App\Http\Controllers\ProfileController;
@@ -36,8 +37,8 @@ Route::middleware('auth')
         Route::get('/assets_galery/{id}', [AssetGaleryController::class, 'index'])->name('assets_galery.index');
         Route::post('/assets_galery/{id}', [AssetGaleryController::class, 'store'])->name('assets_galery.store');
         
-        Route::get('/assets_contract/{id}', [AssetGaleryController::class, 'index'])->name('assets_contract.index');
-        Route::post('/assets_contract/{id}', [AssetGaleryController::class, 'store'])->name('assets_contract.store');
+        Route::get('/assets_contract/{id}', [ContractUploadController::class, 'index'])->name('assets_contract.index');
+        Route::post('/assets_contract/{id}', [ContractUploadController::class, 'store'])->name('assets_contract.store');
         
         Route::get('/uploads/{id}', [AssetGaleryController::class, 'upload'])->name('uploads.upload');
         Route::post('/uploads/{id}', [AssetGaleryController::class, 'store'])->name('uploads.store');

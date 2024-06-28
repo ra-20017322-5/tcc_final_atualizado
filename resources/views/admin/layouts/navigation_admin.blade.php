@@ -9,7 +9,7 @@
                         $logo = route('dashboard')=='/' ? '../images/logo_unicesumar.svg' : '../../images/logo_unicesumar.svg';
                     @endphp
                     <a href="{{ route('dashboard') }}">
-                        <img src="{{$logo}}" alt="ADM - Pagina inicial" height="40px" width="120px">
+                        <img src="{{url('/images/logo_unicesumar.svg')}}" alt="ADM - Pagina inicial" height="40px" width="120px">
                     </a>
                 </div>
 
