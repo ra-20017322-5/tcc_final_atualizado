@@ -66,9 +66,11 @@
                                     <td class="px-6 py-4">{{$contract->created_at}}</td>
                                     <td class="px-6 py-4">{{$contract->user_upload}}</td>
                                     <td class="px-6 py-4">
+                                    
                                         <a href="{{ Storage::disk('s3')->response('tcc-upload/assets/'.$contract->file_name_uploaded) }}" class="">
                                             {{$contract->file_name}}
                                         </a>
+                                        
                                     </td>
                                     <td class="px-6 py-4">
                                         <a href="#" id="{{$contract->id}}" class="delete">
