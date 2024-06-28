@@ -30,7 +30,7 @@
                         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                         
                             <div class="flex justify-between" style="background-color:rgb(215, 218, 227)">
-                                <h4 class="justify-start px-8 py-3 mt-2 mr-2 mb-2 ml-2 text-xl italic text-neutral-500 dark:text-neutral-400"><i class="fas fa-wheelchair"></i> Equipamentos disponíveis para empréstimo
+                                <h4 class="justify-start px-8 py-2 mt-2 mr-2 mb-2 ml-2 text-xl italic text-neutral-500 dark:text-neutral-400"><i class="fas fa-wheelchair"></i> Equipamentos disponíveis para empréstimo
                                 </h4>
                                 
                                 
@@ -71,7 +71,7 @@
                                             <td >{{$asset->avaiable_at}}</td>
                                             <td >
                                                 <a href="https://wa.me/5508006006360?text=Ola!%20Contato%20pelo%20site.%20Cadeira%20ID%3A%20{{ $asset->id }}">
-                                                    <i class="fab fa-whatsapp" style="width: 30px; heigth:30px"></i>
+                                                    <i class="fab fa-whatsapp" style="width: 30px; heigth:30px"></i> Conversar
                                                 </a>
                                             </td>
                                         </tr>

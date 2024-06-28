@@ -24,7 +24,7 @@
                         <b>Cadeiras</b>
                     </a>
                     
-                    <a href="{{ url('/') }}">
+                    <a href="https://wa.me/5508006006360?text=Ola!%20Contato%20pelo%20site.">
                         <i class="fab fa-whatsapp"></i>
                         <br>
                         <b>Contato</b>

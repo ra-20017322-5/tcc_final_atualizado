@@ -50,13 +50,13 @@ class StoreUserRequest extends FormRequest
             'cellphone'=>[
                 'required',
                 'string',
-                'min:14',
+                'min:12',
                 'max:20',
             ],
             'telephone'=>[
                 'nullable',
                 'string',
-                'min:14',
+                'min:12',
                 'max:20',
             ],
             'personal_id_primary'=>[
