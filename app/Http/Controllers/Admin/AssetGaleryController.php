@@ -49,7 +49,7 @@ class AssetGaleryController extends Controller
 
         if( ! UploadAws::create( $data ) ){
             return back()
-            ->with('return_error','FALHOU AO SALVAR O UPLOAD!');
+            ->with('message','FALHOU AO SALVAR O UPLOAD!');
         }
         
         #Return dados

@@ -28,7 +28,7 @@
 
                         @if ( isset($error) )
                             <div class="return_message w-full items-center rounded-lg bg-info-100 px-6 py-5 text-base text-info-800 dark:bg-[#11242a] dark:text-info-500" style="background-color: rgb(251, 243, 203)">
-                                {{$return_error}}
+                                {{$error}}
                             </div>
                         @endif
                         
@@ -66,7 +66,7 @@
                                     <td class="px-6 py-4">{{$contract->created_at}}</td>
                                     <td class="px-6 py-4">{{$contract->user_upload}}</td>
                                     <td class="px-6 py-4">
-                                        <a href="{{ Storage::disk('s3')->url('tcc-upload/assets/'.$contract->file_name_uploaded) }}" class="">
+                                        <a href="{{ response( Storage::disk('s3')->url('tcc-upload/assets/'.$contract->file_name_uploaded) ) }}" class="">
                                             {{$contract->file_name}}
                                         </a>
                                     </td>

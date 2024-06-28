@@ -51,7 +51,7 @@ class ContractUploadController extends Controller
 
         if( ! UploadAws::create( $data ) ){
             return back()
-            ->with('return_success','FALHOU AO SALVAR O UPLOAD!');
+            ->with('message','FALHOU AO SALVAR O UPLOAD!');
         }
         
         #Return dados
