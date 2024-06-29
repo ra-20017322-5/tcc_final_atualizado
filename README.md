@@ -10,4 +10,4 @@ Email: adm@adm.com<br>
 Senah: 12345678<br>
 
 <br><br>
-Obs.: Projeto ainde em desenvolvimento!
+Obs.: Projeto ainda em desenvolvimento!
