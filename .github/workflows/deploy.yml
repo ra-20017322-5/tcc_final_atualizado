@@ -20,8 +20,8 @@ jobs:
         dev: no
         args: --profile --ignore-platform-reqs
 
-    - name: Change owner of /var/www
-      run: sudo chown -R ec2-user.ec2-user /var/www/
+    # - name: Change owner of /var/www
+    #   run: sudo chown -R ec2-user.ec2-user /var/www/
       
     - name: Deploy
       uses: easingthemes/ssh-deploy@main
